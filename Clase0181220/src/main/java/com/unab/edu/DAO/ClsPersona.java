@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,19 +20,27 @@ import java.util.*;
 public class ClsPersona {
 
     ConexionBd claseConectar = new ConexionBd();
-    Connection conectar = claseConectar.retornarConexion();
+    Connection conectar = claseConectar.RetornarConexion();
 
     public ArrayList<Persona> MostrarPersona() {
         ArrayList<Persona> Personas = new ArrayList<>();
-        try{
+        try {
             CallableStatement Statement = conectar.prepareCall("call SP_S_Persona()");
             ResultSet resultadoDeConsulta = Statement.executeQuery();
-            
-        }catch(Exception e){
-        
+            while (resultadoDeConsulta.next()) {
+                Persona persona = new Persona();
+                persona.setIdpersona(resultadoDeConsulta.getInt("IdPersona"));
+                persona.setNombre(resultadoDeConsulta.getString("Nombre"));
+                persona.setApellido(resultadoDeConsulta.getString("Apellido"));
+                persona.setEdad(resultadoDeConsulta.getInt("Edad"));
+                persona.setSexo(resultadoDeConsulta.getString("Sexo"));
+                Personas.add(persona);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
 
-        return null;
+        return Personas;
     }
 
 }

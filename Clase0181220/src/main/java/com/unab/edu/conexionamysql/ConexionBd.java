@@ -27,7 +27,7 @@ public class ConexionBd {
         System.out.println("Error de conexion "+ e);
     }
     }
-    public Connection retornarConexion(){   
+    public Connection RetornarConexion(){   
     return conexion;   
     }    
 }
