@@ -57,13 +57,13 @@ public class ClsPersona {
         }
 
     }
-    
+
     public void BorrarPersona(Persona Per) {
         try {
             CallableStatement Statement = conectar.prepareCall("call SP_D_Persona(?)");
 
             Statement.setInt("PIdPersonas", Per.getIdpersona());
-            
+
             Statement.execute();
             JOptionPane.showMessageDialog(null, "PERSONA ELIMINADA CON EXITO");
         } catch (Exception e) {
