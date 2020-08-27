@@ -54,7 +54,7 @@ public class crudPersona extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jTabbedpane1 = new javax.swing.JTabbedPane();
+        tbmostrar = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtId = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
@@ -194,7 +194,7 @@ public class crudPersona extends javax.swing.JFrame {
                 .addGap(37, 37, 37))
         );
 
-        jTabbedpane1.addTab("Operaciones de CRUD", jPanel1);
+        tbmostrar.addTab("Operaciones de CRUD", jPanel1);
 
         tb_persona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,6 +207,11 @@ public class crudPersona extends javax.swing.JFrame {
                 "ID", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tb_persona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_personaMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tb_persona);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -226,20 +231,20 @@ public class crudPersona extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
-        jTabbedpane1.addTab("Mostrar Datos", jPanel2);
+        tbmostrar.addTab("Mostrar Datos", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedpane1)
+                .addComponent(tbmostrar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedpane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbmostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 84, Short.MAX_VALUE))
         );
 
@@ -282,6 +287,30 @@ public class crudPersona extends javax.swing.JFrame {
         Personas.ActualizarPersona(Persona);
         MostrarTablaPersona();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tb_personaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_personaMouseClicked
+        //MOVILIZACION DE TBPANE
+        tbmostrar.setSelectedIndex(tbmostrar.indexOfComponent(jPanel1));
+        //OBTENER LA FILA ACTUAL QUE EL USUARIO SELECCIONO
+        int fila = tb_persona.getSelectedRow();
+        
+        
+        //GEVALUEAT SIRVE PARA CAPTURAR DATOS DE LAS TABLAS
+        String ID = String.valueOf(tb_persona.getValueAt(fila, 0));
+        String nombre = String.valueOf(tb_persona.getValueAt(fila, 1));
+        String apellido = String.valueOf(tb_persona.getValueAt(fila, 2));
+        String edad = String.valueOf(tb_persona.getValueAt(fila, 3));
+        String sexo = String.valueOf(tb_persona.getValueAt(fila, 4));
+        
+        
+        
+        txtId.setText(ID);
+        txtNombre.setText(nombre);
+        txtApellido.setText(apellido);
+        txtEdad.setText(edad);
+        txtSexo.setText(sexo);
+        
+    }//GEN-LAST:event_tb_personaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -332,9 +361,9 @@ public class crudPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedpane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tb_persona;
+    private javax.swing.JTabbedPane tbmostrar;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtId;
