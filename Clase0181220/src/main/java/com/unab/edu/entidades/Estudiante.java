@@ -16,4 +16,6 @@ import lombok.*;
 public class Estudiante extends Persona{
     private int Id;
     private int matricula;
+    private String Usu;
+    private String pass;
 }
