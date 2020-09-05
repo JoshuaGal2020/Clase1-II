@@ -7,7 +7,6 @@ package com.unab.edu.DAO;
 
 import com.unab.edu.conexionamysql.ConexionBd;
 import com.unab.edu.entidades.Estudiante;
-import com.unab.edu.entidades.Persona;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -53,4 +52,5 @@ public class ClsEstudiante {
         }
         return false;
     }
+
 }
