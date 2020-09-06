@@ -10,6 +10,7 @@ import com.unab.edu.entidades.Estudiante;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -45,7 +46,7 @@ public class ClsEstudiante {
             if (usuariodebasedatos.equals(usuario) && passdebasedatos.equals(Pass)) {
                 return true;
             }
-            conectar.close();
+            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -53,4 +54,27 @@ public class ClsEstudiante {
         return false;
     }
 
+    public ArrayList<Estudiante> MostrarEstudiante() {
+        ArrayList<Estudiante> lista = new ArrayList<>();
+
+        try {
+            CallableStatement st = conectar.prepareCall("call SP_S_ESTUDIANTE (?,?,?,?,?,?,?)");
+            ResultSet Resulta = st.executeQuery();
+            while (Resulta.next()) {
+                Estudiante es = new Estudiante();
+                es.setId(Resulta.getInt("Idestudiante"));
+                es.setMatricula(Resulta.getInt("matricula"));
+                es.setIdpersona(Resulta.getInt("idPersona"));
+                es.setNombre(Resulta.getString("nombre"));
+                es.setUsu(Resulta.getString("USU"));
+                es.setPass(Resulta.getString("PASS"));
+
+                lista.add(es);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+        return lista;
+    }
 }

@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package com.unab.edu.operacionBd;
+
+import com.unab.edu.DAO.ClsEstudiante;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author patty
@@ -15,8 +19,30 @@ public class crudEstudiante extends javax.swing.JFrame {
      */
     public crudEstudiante() {
         initComponents();
+        MostrarES();
     }
-
+    void MostrarES(){
+    String Titulos [] = {"ID","MATRICULA","IDPERSONA","NOMBRE","USUARIO","PASSWORD","NIE"};
+        DefaultTableModel ES = new DefaultTableModel(null, Titulos);
+        ClsEstudiante ClsJoinE = new ClsEstudiante();
+        var MostrarJoinEstudiante = ClsJoinE.MostrarEstudiante();
+        String filas [] = new String[8];
+        
+        for (var iterador : MostrarJoinEstudiante) {
+            filas[0] = String.valueOf(iterador.getId());
+            filas[1] = String.valueOf(iterador.getMatricula());
+            filas[2] = String.valueOf(iterador.getIdpersona());
+            filas[3] = iterador.getNombre();
+            filas[4] = iterador.getUsu();
+            filas[5] = iterador.getPass();
+            filas[6] = String.valueOf(iterador.getNie());
+            
+            ES.addRow(filas);
+            
+        }
+       tb_Estudiante.setModel(ES);
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
