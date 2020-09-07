@@ -10,8 +10,7 @@ import com.unab.edu.entidades.Estudiante;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,7 +45,6 @@ public class ClsEstudiante {
             if (usuariodebasedatos.equals(usuario) && passdebasedatos.equals(Pass)) {
                 return true;
             }
-            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -58,23 +56,73 @@ public class ClsEstudiante {
         ArrayList<Estudiante> lista = new ArrayList<>();
 
         try {
-            CallableStatement st = conectar.prepareCall("call SP_S_ESTUDIANTE (?,?,?,?,?,?,?)");
+            CallableStatement st = conectar.prepareCall("call SP_S_ESTUDIANTE()");
             ResultSet Resulta = st.executeQuery();
             while (Resulta.next()) {
                 Estudiante es = new Estudiante();
-                es.setId(Resulta.getInt("Idestudiante"));
+                es.setId(Resulta.getInt("idestudiante"));
                 es.setMatricula(Resulta.getInt("matricula"));
-                es.setIdpersona(Resulta.getInt("idPersona"));
+                es.setIdpersona(Resulta.getInt("IdPersona"));
                 es.setNombre(Resulta.getString("nombre"));
                 es.setUsu(Resulta.getString("USU"));
                 es.setPass(Resulta.getString("PASS"));
+                es.setNie(Resulta.getInt("NIE"));
 
                 lista.add(es);
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error" + e);
+            JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
         return lista;
+    }
+
+    public void AgregarEstudiante(Estudiante EST) {
+        try {
+            CallableStatement Statement = conectar.prepareCall("call SP_I_ESTUDIANTE(?,?,?,?,?)");
+            Statement.setInt("EMatricula", EST.getMatricula());
+            Statement.setInt("EIdPersona", EST.getIdpersona());
+            Statement.setString("EUsuario", EST.getUsu());
+            Statement.setString("EPass", EST.getPass());
+            Statement.setInt("ENie", EST.getNie());
+            Statement.execute();
+            conectar.close();
+            JOptionPane.showMessageDialog(null, "ESTUDIANTE GUARDAD@ CON EXITO");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
+    public void BorrarEstudiante(Estudiante EST) {
+        try {
+            CallableStatement Statement = conectar.prepareCall("call SP_D_ESTUDIANTE(?)");
+
+            Statement.setInt("GIdEstudiantes", EST.getId());
+
+            Statement.execute();
+            conectar.close();
+            JOptionPane.showMessageDialog(null, "ESTUDIANTE ELIMINAD@ CON EXITO");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
+    public void ActualizarEstudiante(Estudiante Estudiante) {
+        try {
+            CallableStatement Statement = conectar.prepareCall("call SP_U_ESTUDIANTE(?,?,?,?,?,?)");
+            Statement.setInt("PIdEstudiante", Estudiante.getId());
+            Statement.setInt("PMatricula", Estudiante.getMatricula());
+            Statement.setInt("PIdPersona", Estudiante.getIdpersona());
+            Statement.setString("PUsu", Estudiante.getUsu());
+            Statement.setString("PPass", Estudiante.getPass());
+            Statement.setInt("PNie", Estudiante.getNie());
+            Statement.execute();
+            conectar.close();
+            JOptionPane.showMessageDialog(null, "ESTUDIANTE ACTUALIZAD@ CON EXITO");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 }
