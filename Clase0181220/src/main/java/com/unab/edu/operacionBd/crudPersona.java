@@ -293,23 +293,20 @@ public class crudPersona extends javax.swing.JFrame {
         tbmostrar.setSelectedIndex(tbmostrar.indexOfComponent(jPanel1));
         //OBTENER LA FILA ACTUAL QUE EL USUARIO SELECCIONO
         int fila = tb_persona.getSelectedRow();
-        
-        
+
         //GEVALUEAT SIRVE PARA CAPTURAR DATOS DE LAS TABLAS
         String ID = String.valueOf(tb_persona.getValueAt(fila, 0));
         String nombre = String.valueOf(tb_persona.getValueAt(fila, 1));
         String apellido = String.valueOf(tb_persona.getValueAt(fila, 2));
         String edad = String.valueOf(tb_persona.getValueAt(fila, 3));
         String sexo = String.valueOf(tb_persona.getValueAt(fila, 4));
-        
-        
-        
+
         txtId.setText(ID);
         txtNombre.setText(nombre);
         txtApellido.setText(apellido);
         txtEdad.setText(edad);
         txtSexo.setText(sexo);
-        
+
     }//GEN-LAST:event_tb_personaMouseClicked
 
     /**

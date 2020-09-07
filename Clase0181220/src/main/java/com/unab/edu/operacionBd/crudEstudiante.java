@@ -7,8 +7,10 @@ package com.unab.edu.operacionBd;
 
 import com.unab.edu.DAO.ClsEstudiante;
 import com.unab.edu.DAO.ClsPersona;
+import com.unab.edu.conexionamysql.ConexionBd;
 import com.unab.edu.entidades.Estudiante;
 import com.unab.edu.entidades.Persona;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,12 +30,12 @@ public class crudEstudiante extends javax.swing.JFrame {
     }
 
     void MostrarES() {
-        String Titulos[] = {"ID EST", "MATRICULA", "IDPERSONA","NOMBRE", "USUARIO", "PASSWORD", "NIE"};
+        String Titulos[] = {"ID EST", "MATRICULA", "IDPERSONA", "NOMBRE", "USUARIO", "PASSWORD", "NIE"};
         DefaultTableModel ES = new DefaultTableModel(null, Titulos);
         ClsEstudiante ClsJEstudiante = new ClsEstudiante();
         var MostrarEstudiante = ClsJEstudiante.MostrarEstudiante();
-        String filas [] = new String[8];
-        for (var iterador : MostrarEstudiante ) {
+        String filas[] = new String[8];
+        for (var iterador : MostrarEstudiante) {
             filas[0] = String.valueOf(iterador.getId());
             filas[1] = String.valueOf(iterador.getMatricula());
             filas[2] = String.valueOf(iterador.getIdpersona());
@@ -42,12 +44,13 @@ public class crudEstudiante extends javax.swing.JFrame {
             filas[5] = iterador.getPass();
             filas[6] = String.valueOf(iterador.getNie());
             ES.addRow(filas);
-            
+
         }
         tb_Estudiante.setModel(ES);
     }
-    void MostrarP(){
-    String TITULOS[] = {"ID", "NOMBRE"};
+
+    void MostrarP() {
+        String TITULOS[] = {"ID", "NOMBRE"};
         DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
         ClsPersona clasePersona = new ClsPersona();
         ArrayList<Persona> Personas = clasePersona.MostrarPersona();
@@ -57,7 +60,16 @@ public class crudEstudiante extends javax.swing.JFrame {
             filas[1] = IterarDatosPersona.getNombre();
             ModeloTabla.addRow(filas);
         }
-        tb_PersonaG.setModel(ModeloTabla);  
+        tb_PersonaG.setModel(ModeloTabla);
+    }
+
+    void Limpiar() {
+        txtID.setText("");
+        txtMatricula.setText("");
+        txtIdPersona.setText("");
+        txtUsuario.setText("");
+        txtPass.setText("");
+        txtNie.setText("");
     }
 
     /**
@@ -96,6 +108,8 @@ public class crudEstudiante extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tbMostrar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
@@ -108,16 +122,22 @@ public class crudEstudiante extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("IdEstudiante");
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Matricula");
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("IdPersona");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Usuario");
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Pass");
 
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("NIE");
 
         tb_PersonaG.setModel(new javax.swing.table.DefaultTableModel(
@@ -138,6 +158,7 @@ public class crudEstudiante extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tb_PersonaG);
 
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Selecciona la Persona");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -190,7 +211,7 @@ public class crudEstudiante extends javax.swing.JFrame {
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
@@ -244,6 +265,7 @@ public class crudEstudiante extends javax.swing.JFrame {
 
         tbMostrar.addTab("Mostrar Datos", jPanel2);
 
+        btnGuardar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +273,7 @@ public class crudEstudiante extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,6 +281,7 @@ public class crudEstudiante extends javax.swing.JFrame {
             }
         });
 
+        btnActualizar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         btnActualizar.setText("Actualizar Datos");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,7 +289,13 @@ public class crudEstudiante extends javax.swing.JFrame {
             }
         });
 
+        btnConexion.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         btnConexion.setText("Probar Conexion");
+        btnConexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConexionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,7 +319,7 @@ public class crudEstudiante extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(tbMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -313,14 +343,16 @@ public class crudEstudiante extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         ClsEstudiante ESTU = new ClsEstudiante();
-        Estudiante ES = new Estudiante();       
+        Estudiante ES = new Estudiante();
         ES.setMatricula(Integer.parseInt(txtMatricula.getText()));
         ES.setIdpersona(Integer.parseInt(txtIdPersona.getText()));
         ES.setUsu(txtUsuario.getText());
         ES.setPass(txtPass.getText());
         ES.setNie(Integer.parseInt(txtNie.getText()));
         ESTU.AgregarEstudiante(ES);
+        Limpiar();
         MostrarES();
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void tb_EstudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_EstudianteMouseClicked
@@ -328,8 +360,7 @@ public class crudEstudiante extends javax.swing.JFrame {
         tbMostrar.setSelectedIndex(tbMostrar.indexOfComponent(jPanel1));
         //OBTENER LA FILA ACTUAL QUE EL USUARIO SELECCIONO
         int fila = tb_Estudiante.getSelectedRow();
-        
-        
+
         //GEVALUEAT SIRVE PARA CAPTURAR DATOS DE LAS TABLAS
         String ID = String.valueOf(tb_Estudiante.getValueAt(fila, 0));
         String matricula = String.valueOf(tb_Estudiante.getValueAt(fila, 1));
@@ -337,9 +368,7 @@ public class crudEstudiante extends javax.swing.JFrame {
         String usuario = String.valueOf(tb_Estudiante.getValueAt(fila, 4));
         String pass = String.valueOf(tb_Estudiante.getValueAt(fila, 5));
         String Nie = String.valueOf(tb_Estudiante.getValueAt(fila, 6));
-        
-        
-        
+
         txtID.setText(ID);
         txtMatricula.setText(matricula);
         txtIdPersona.setText(IdPersona);
@@ -355,11 +384,12 @@ public class crudEstudiante extends javax.swing.JFrame {
         est.setId(Integer.parseInt(txtID.getText()));
 
         estudiante.BorrarEstudiante(est);
+        Limpiar();
         MostrarES();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-       ClsEstudiante estudiante = new ClsEstudiante();
+        ClsEstudiante estudiante = new ClsEstudiante();
         Estudiante est = new Estudiante();
 
         est.setId(Integer.parseInt(txtID.getText()));
@@ -368,24 +398,28 @@ public class crudEstudiante extends javax.swing.JFrame {
         est.setUsu(txtUsuario.getText());
         est.setPass(txtPass.getText());
         est.setNie(Integer.parseInt(txtNie.getText()));
-        
 
         estudiante.ActualizarEstudiante(est);
+        Limpiar();
         MostrarES();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void tb_PersonaGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_PersonaGMouseClicked
-         //MOVILIZACION DE TBPANE
+        //MOVILIZACION DE TBPANE
         tbMostrar.setSelectedIndex(tbMostrar.indexOfComponent(jPanel1));
         //OBTENER LA FILA ACTUAL QUE EL USUARIO SELECCIONO
         int fila = tb_PersonaG.getSelectedRow();
-        
-        
+
         //GEVALUEAT SIRVE PARA CAPTURAR DATOS DE LAS TABLAS
         String ID = String.valueOf(tb_PersonaG.getValueAt(fila, 0));
-        
+
         txtIdPersona.setText(ID);
     }//GEN-LAST:event_tb_PersonaGMouseClicked
+
+    private void btnConexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConexionActionPerformed
+        ConexionBd classconectar = new ConexionBd();
+        Connection conectar = classconectar.RetornarConexion();
+    }//GEN-LAST:event_btnConexionActionPerformed
 
     /**
      * @param args the command line arguments
