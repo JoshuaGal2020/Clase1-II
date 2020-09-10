@@ -23,7 +23,8 @@ public class ClsEstudiante {
     Connection conectar = claseConectar.RetornarConexion();
 
     public boolean LoguinEstudiante(String usuario, String Pass) {
-        ArrayList<Estudiante> ListaUsuariosPass = new ArrayList<>();
+        ArrayList<Estudiante> ListaUsuarios = new ArrayList<>();
+        ArrayList<Estudiante> ListarContra = new ArrayList<>();
         try {
             CallableStatement Statement = conectar.prepareCall("call SP_S_LOGUIESTUDIANTE(?,?)");
             Statement.setString("pusuario", usuario);
@@ -33,21 +34,39 @@ public class ClsEstudiante {
                 Estudiante es = new Estudiante();
                 es.setUsu(resultadoDeConsulta.getString("USU"));
                 es.setPass(resultadoDeConsulta.getString("PASS"));
-                ListaUsuariosPass.add(es);
+                ListaUsuarios.add(es);
             }
             String usuariodebasedatos = null;
             String passdebasedatos = null;
-            for (var iterador : ListaUsuariosPass) {
+            for (var iterador : ListaUsuarios) {
                 usuariodebasedatos = iterador.getUsu();
                 passdebasedatos = iterador.getPass();
-
             }
-            if (usuariodebasedatos.equals(usuario) && passdebasedatos.equals(Pass)) {
-                return true;
-            }
+            CallableStatement st2 = conectar.prepareCall("SP_S_CRIP(?)");
+            st2.setString("PcripPass", Pass);
+            ResultSet rs2 = st2.executeQuery();
+            while (rs2.next()) {
+                Estudiante escrip = new Estudiante();
 
+                escrip.setPass(rs2.getNString("crip"));
+                ListarContra.add(escrip);
+            }
+            String passcrip = null;
+            for (var iterador : ListarContra) {
+
+                passcrip = iterador.getPass();
+
+                Pass = passcrip;
+            }
+            if (usuariodebasedatos!=null &&passdebasedatos!=null){
+            if(usuariodebasedatos.equals(usuario)&& passdebasedatos.equals(Pass)){
+            return true;
+            }
+            }
+            
+            conectar.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null,"Error"+ e);
         }
         return false;
     }
