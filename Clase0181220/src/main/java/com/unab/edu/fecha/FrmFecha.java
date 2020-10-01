@@ -101,9 +101,11 @@ public class FrmFecha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        // TODO add your handling code here:
+//        Date  fecha = new Date();
+//        fecha = jDateChooser1.getDate();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
+//        String fechaCaracter = formato.format(fecha);
+//        jTextField1.setText(fechaCaracter);
         Calendar calendario = Calendar.getInstance();
         calendario = jDateChooser1.getCalendar();
         String fechaCaracter = formato.format(calendario.getTime());
