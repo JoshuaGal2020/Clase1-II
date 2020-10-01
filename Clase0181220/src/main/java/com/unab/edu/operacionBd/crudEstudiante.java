@@ -12,6 +12,7 @@ import com.unab.edu.entidades.Estudiante;
 import com.unab.edu.entidades.Persona;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,8 +28,28 @@ public class crudEstudiante extends javax.swing.JFrame {
         initComponents();
         MostrarES();
         MostrarP();
+        displayMember();
     }
-
+    int contador = 0 ;
+    String valueMember[];
+    void displayMember(){
+    DefaultComboBoxModel cbdeault = new DefaultComboBoxModel();
+    ClsPersona clasePersona = new ClsPersona();
+    ArrayList<Persona> Personas = clasePersona.MostrarPersona();
+    valueMember = new String [Personas.size()];
+    
+    String filas[] = new String[3];
+        for (var IterarDatosPersona : Personas) {
+            filas[0] = String.valueOf(IterarDatosPersona.getIdpersona());
+            filas[1] = IterarDatosPersona.getNombre();
+            valueMember [contador] = filas[0];
+            cbdeault.addElement(filas[1]);
+            contador ++;
+        }
+        cbPersonas.setModel(cbdeault);
+    
+    }
+    
     void MostrarES() {
         String Titulos[] = {"ID EST", "MATRICULA", "IDPERSONA", "NOMBRE", "USUARIO", "PASSWORD", "NIE"};
         DefaultTableModel ES = new DefaultTableModel(null, Titulos);
@@ -102,6 +123,8 @@ public class crudEstudiante extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnConexion = new javax.swing.JButton();
+        cbPersonas = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_Estudiante = new javax.swing.JTable();
@@ -200,6 +223,10 @@ public class crudEstudiante extends javax.swing.JFrame {
             }
         });
 
+        cbPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -236,11 +263,16 @@ public class crudEstudiante extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77))))))
+                                .addGap(77, 77, 77))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cbPersonas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                                .addGap(25, 25, 25))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +309,10 @@ public class crudEstudiante extends javax.swing.JFrame {
                     .addComponent(btnConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addComponent(jButton1)
+                .addGap(8, 8, 8)
+                .addComponent(cbPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
@@ -409,6 +444,11 @@ public class crudEstudiante extends javax.swing.JFrame {
         MostrarES();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void btnConexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConexionActionPerformed
+        ConexionBd classconectar = new ConexionBd();
+        Connection conectar = classconectar.RetornarConexion();
+    }//GEN-LAST:event_btnConexionActionPerformed
+
     private void tb_PersonaGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_PersonaGMouseClicked
         //MOVILIZACION DE TBPANE
         tbMostrar.setSelectedIndex(tbMostrar.indexOfComponent(jPanel1));
@@ -420,11 +460,6 @@ public class crudEstudiante extends javax.swing.JFrame {
 
         txtIdPersona.setText(ID);
     }//GEN-LAST:event_tb_PersonaGMouseClicked
-
-    private void btnConexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConexionActionPerformed
-        ConexionBd classconectar = new ConexionBd();
-        Connection conectar = classconectar.RetornarConexion();
-    }//GEN-LAST:event_btnConexionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,6 +501,8 @@ public class crudEstudiante extends javax.swing.JFrame {
     private javax.swing.JButton btnConexion;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cbPersonas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
