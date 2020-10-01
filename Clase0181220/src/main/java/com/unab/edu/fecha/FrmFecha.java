@@ -5,6 +5,10 @@
  */
 package com.unab.edu.fecha;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author patty
@@ -16,6 +20,30 @@ public class FrmFecha extends javax.swing.JFrame {
      */
     public FrmFecha() {
         initComponents();
+        Date date = new Date();
+//        try {
+//            SimpleDateFormat format = new SimpleDateFormat("yy/mm/dd");
+//        Date fechaenformatoDate = new Date();
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        try {
+//            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//            String fechar = "23/09/2020";
+//            date = formato.parse(fechar);
+//            
+//            System.out.println(formato.format(date));
+//        } catch (Exception e) {
+//            System.err.println(e);
+//        }
+//        System.out.println(date.getDay());
+//        Calendar calendario = Calendar.getInstance();
+//        System.out.println(calendario);
+//        LocalDate fecha = LocalDate.now();
+//        System.out.println(fecha.getMonth());
+        Calendar cal = Calendar.getInstance();
+//        jDateChooser1.setDate(date);
+        jDateChooser1.setCalendar(cal);
     }
 
     /**
@@ -28,13 +56,18 @@ public class FrmFecha extends javax.swing.JFrame {
     private void initComponents() {
 
         jCalendar1 = new com.toedter.calendar.JCalendar();
-        jButton1 = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Enviar");
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -44,7 +77,7 @@ public class FrmFecha extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,12 +93,22 @@ public class FrmFecha extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        Calendar calendario = Calendar.getInstance();
+        calendario = jDateChooser1.getCalendar();
+        String fechaCaracter = formato.format(calendario.getTime());
+        jTextField1.setText(fechaCaracter);
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,7 +146,7 @@ public class FrmFecha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnEnviar;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JTextField jTextField1;
