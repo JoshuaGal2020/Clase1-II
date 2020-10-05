@@ -27,29 +27,30 @@ public class crudEstudiante extends javax.swing.JFrame {
     public crudEstudiante() {
         initComponents();
         MostrarES();
-        MostrarP();
+ //       MostrarP();
         displayMember();
     }
-    int contador = 0 ;
+    int contador = 0;
     String valueMember[];
-    void displayMember(){
-    DefaultComboBoxModel cbdeault = new DefaultComboBoxModel();
-    ClsPersona clasePersona = new ClsPersona();
-    ArrayList<Persona> Personas = clasePersona.MostrarPersona();
-    valueMember = new String [Personas.size()];
-    
-    String filas[] = new String[3];
+
+    void displayMember() {
+        DefaultComboBoxModel cbdeault = new DefaultComboBoxModel();
+        ClsPersona clasePersona = new ClsPersona();
+        ArrayList<Persona> Personas = clasePersona.MostrarPersona();
+        valueMember = new String[Personas.size()];
+
+        String filas[] = new String[5];
         for (var IterarDatosPersona : Personas) {
             filas[0] = String.valueOf(IterarDatosPersona.getIdpersona());
             filas[1] = IterarDatosPersona.getNombre();
-            valueMember [contador] = filas[0];
+            valueMember[contador] = filas[0];
             cbdeault.addElement(filas[1]);
-            contador ++;
+            contador++;
         }
         cbPersonas.setModel(cbdeault);
-    
+
     }
-    
+
     void MostrarES() {
         String Titulos[] = {"ID EST", "MATRICULA", "IDPERSONA", "NOMBRE", "USUARIO", "PASSWORD", "NIE"};
         DefaultTableModel ES = new DefaultTableModel(null, Titulos);
@@ -70,24 +71,23 @@ public class crudEstudiante extends javax.swing.JFrame {
         tb_Estudiante.setModel(ES);
     }
 
-    void MostrarP() {
-        String TITULOS[] = {"ID", "NOMBRE"};
-        DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
-        ClsPersona clasePersona = new ClsPersona();
-        ArrayList<Persona> Personas = clasePersona.MostrarPersona();
-        String filas[] = new String[3];
-        for (var IterarDatosPersona : Personas) {
-            filas[0] = String.valueOf(IterarDatosPersona.getIdpersona());
-            filas[1] = IterarDatosPersona.getNombre();
-            ModeloTabla.addRow(filas);
-        }
-        tb_PersonaG.setModel(ModeloTabla);
-    }
-
+////    void MostrarP() {
+////        String TITULOS[] = {"ID", "NOMBRE"};
+////        DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
+////        ClsPersona clasePersona = new ClsPersona();
+////        ArrayList<Persona> Personas = clasePersona.MostrarPersona();
+////        String filas[] = new String[3];
+////        for (var IterarDatosPersona : Personas) {
+////            filas[0] = String.valueOf(IterarDatosPersona.getIdpersona());
+////            filas[1] = IterarDatosPersona.getNombre();
+////            ModeloTabla.addRow(filas);
+////        }
+////        tb_PersonaG.setModel(ModeloTabla);
+////    }
     void Limpiar() {
         txtID.setText("");
         txtMatricula.setText("");
-        txtIdPersona.setText("");
+//      txtIdPersona.setText("");
         txtUsuario.setText("");
         txtPass.setText("");
         txtNie.setText("");
@@ -106,7 +106,6 @@ public class crudEstudiante extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txtID = new javax.swing.JTextField();
         txtMatricula = new javax.swing.JTextField();
-        txtIdPersona = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
         txtNie = new javax.swing.JTextField();
@@ -116,9 +115,6 @@ public class crudEstudiante extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tb_PersonaG = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -168,29 +164,6 @@ public class crudEstudiante extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("NIE");
 
-        tb_PersonaG.setBackground(new java.awt.Color(204, 255, 255));
-        tb_PersonaG.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
-        tb_PersonaG.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
-        tb_PersonaG.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tb_PersonaGMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tb_PersonaG);
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel7.setText("Selecciona la Persona");
-
         btnGuardar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -226,6 +199,11 @@ public class crudEstudiante extends javax.swing.JFrame {
         cbPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,6 +227,7 @@ public class crudEstudiante extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbPersonas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNie)
                             .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,66 +236,51 @@ public class crudEstudiante extends javax.swing.JFrame {
                             .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                             .addComponent(txtMatricula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdPersona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPass, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cbPersonas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
-                                .addGap(25, 25, 25))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addContainerGap())))))
+                        .addComponent(jButton1)
+                        .addGap(242, 242, 242))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIdPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(8, 8, 8)
-                .addComponent(cbPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addGap(153, 153, 153))
         );
 
         tbMostrar.addTab("Operaciones CRUD", jPanel1);
@@ -385,7 +349,8 @@ public class crudEstudiante extends javax.swing.JFrame {
         ClsEstudiante ESTU = new ClsEstudiante();
         Estudiante ES = new Estudiante();
         ES.setMatricula(Integer.parseInt(txtMatricula.getText()));
-        ES.setIdpersona(Integer.parseInt(txtIdPersona.getText()));
+//      ES.setIdpersona(Integer.parseInt(txtIdPersona.getText()));
+        ES.setIdpersona(Integer.parseInt(valueMember[cbPersonas.getSelectedIndex()]));
         ES.setUsu(txtUsuario.getText());
         ES.setPass(txtPass.getText());
         ES.setNie(Integer.parseInt(txtNie.getText()));
@@ -411,7 +376,7 @@ public class crudEstudiante extends javax.swing.JFrame {
 
         txtID.setText(ID);
         txtMatricula.setText(matricula);
-        txtIdPersona.setText(IdPersona);
+//      txtIdPersona.setText(IdPersona);
         txtUsuario.setText(usuario);
         txtPass.setText(pass);
         txtNie.setText(Nie);
@@ -434,7 +399,7 @@ public class crudEstudiante extends javax.swing.JFrame {
 
         est.setId(Integer.parseInt(txtID.getText()));
         est.setMatricula(Integer.parseInt(txtMatricula.getText()));
-        est.setIdpersona(Integer.parseInt(txtIdPersona.getText()));
+//        est.setIdpersona(Integer.parseInt(txtIdPersona.getText()));
         est.setUsu(txtUsuario.getText());
         est.setPass(txtPass.getText());
         est.setNie(Integer.parseInt(txtNie.getText()));
@@ -449,17 +414,9 @@ public class crudEstudiante extends javax.swing.JFrame {
         Connection conectar = classconectar.RetornarConexion();
     }//GEN-LAST:event_btnConexionActionPerformed
 
-    private void tb_PersonaGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_PersonaGMouseClicked
-        //MOVILIZACION DE TBPANE
-        tbMostrar.setSelectedIndex(tbMostrar.indexOfComponent(jPanel1));
-        //OBTENER LA FILA ACTUAL QUE EL USUARIO SELECCIONO
-        int fila = tb_PersonaG.getSelectedRow();
-
-        //GEVALUEAT SIRVE PARA CAPTURAR DATOS DE LAS TABLAS
-        String ID = String.valueOf(tb_PersonaG.getValueAt(fila, 0));
-
-        txtIdPersona.setText(ID);
-    }//GEN-LAST:event_tb_PersonaGMouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//     txtIdPersona.setText(valueMember[cbPersonas.getSelectedIndex()]);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -509,16 +466,12 @@ public class crudEstudiante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane tbMostrar;
     private javax.swing.JTable tb_Estudiante;
-    private javax.swing.JTable tb_PersonaG;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtIdPersona;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNie;
     private javax.swing.JTextField txtPass;
